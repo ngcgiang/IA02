@@ -1,0 +1,12 @@
+{
+  "name": "ia01",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+  "build:css": "npx tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

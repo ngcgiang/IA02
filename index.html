@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate</title>
+    <link href="dist/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="position absolute w-[600px] h-[300px]  border border-black m-8">
+        <div class="grid grid-cols-6 gap-4">
+            <div class="col-span-6 font-bold text-3xl m-4">Bé tập tính</div>
+            <div class="col-span-2 m-4">
+                <div class="text-xl ml-10">Số thứ nhất</div>
+                <div class="text-xl ml-10 my-1">Số thứ hai</div>
+                <div class="text-xl ml-10">Kết quả</div>
+                <div class="text-xl ml-10 mt-2">Thông báo</div>
+            </div>
+            <div class="col-span-2 mt-4">
+                <div class=""><input class="border border-black" type="text" id="ip1"></div>
+                <div class="my-2"><input class="border border-black" type="text" id="ip2"></div>
+                <div class="border border-black h-7 w-44" id="output"></div>
+                <div class="pt-2 text-red-600" id="error"></div>
+            </div>
+            <div class="col-span-2 mt-3">
+                <div class="inline-block mx-2 mb-3 mt-1"><input type="radio" name="operation" id="op1" value="+">Cộng</div>
+                <div class="inline-block mx-2 mr-8"><input type="radio" name="operation" id="op2" value="-">Trừ</div>
+                <div class="inline-block mx-2 mb-2"><input type="radio" name="operation" id="op3" value="*">Nhân</div>
+                <div class="inline-block mx-2"><input type="radio" name="operation" id="op4" value="/">Chia</div>
+                <div class="ml-3"><button class="border border-black px-2 bg-slate-300" type="button" id="calculateButton">Tính</button></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('calculateButton').addEventListener('click',function(){
+            let result;
+            let outputResult;
+            // lấy giá trị input 1 & 2
+            let value1 = document.getElementById('ip1').value;
+            let value2 = document.getElementById('ip2').value;
+            // kiểm tra input 1&2
+            if(value1 === ''){
+                result = 'Vui lòng nhập số thứ nhất.';
+                outputResult = document.getElementById('error');
+                outputResult.innerText = result;
+                return;
+            }
+            if(value2 === ''){
+                result = 'Vui lòng nhập số thứ hai.';
+                outputResult = document.getElementById('error');
+                outputResult.innerText = result;
+                return;
+            }
+            //chuyển đổi giá trị
+            value1 = parseFloat(value1);
+            value2 = parseFloat(value2);
+            //kiểm tra giá trị
+            if(isNaN(value1)){
+                result = 'Số thứ nhất không hợp lệ';
+                outputResult = document.getElementById('error');
+                outputResult.innerText = result;
+                return;
+            }
+            if(isNaN(value2)){
+                result = 'Số thứ hai không hợp lệ';
+                outputResult = document.getElementById('error');
+                outputResult.innerText = result;
+                return;
+            }
+            // lấy phép tính
+            const radios = document.getElementsByName('operation');
+            let operation;
+            
+            for(const radio of radios){
+                if(radio.checked){
+                    operation = radio.value;
+                    break;
+                }
+            }
+
+
+            switch(operation){
+                case '+': result = value1 + value2;
+                    break;
+                case '-': result = value1 - value2;
+                    break;
+                case '*': result = value1 * value2;
+                    break;
+                case '/': 
+                    if(value2 === 0){
+                        result = 'Số thứ 2 không thể là 0';
+                    }else {
+                        result = value1 / value2;
+                    }
+                    break;
+                default: 
+                    result = 'Vui lòng chọn 1 phép tính.';
+                    break;
+            }
+            if(typeof(result) === 'string'){
+                outputResult = document.getElementById('error');
+
+            }else{
+                outputResult = document.getElementById('output');
+            }
+            outputResult.innerText = result;
+        });
+        
+    </script>
+</body>
+</html>
