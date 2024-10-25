@@ -6,8 +6,8 @@
     <title>Calculate</title>
     <link href="dist/styles.css" rel="stylesheet">
 </head>
-<body>
-    <div class="position absolute w-[600px] h-[300px]  border border-black m-8">
+<body >
+    <div id="content" class="position absolute w-[600px] h-[300px]  border border-black m-8">
         <div class="grid grid-cols-6 gap-4">
             <div class="col-span-6 font-bold text-3xl m-4">Bé tập tính</div>
             <div class="col-span-2 m-4">
@@ -32,23 +32,119 @@
         </div>
     </div>
     <script>
+        document.getElementById('ip2').addEventListener('click', function(){
+            let result;
+            let error;
+            let outputResult;
+            let outputError;
+            outputResult = document.getElementById('output');
+            outputError = document.getElementById('error');
+            // lấy giá trị input 1;
+            let value1 = document.getElementById('ip1').value;
+            if(value1 === ''){
+                return;
+            }else{
+                value1 = parseFloat(value1);
+                if(isNaN(value1)){
+                    error = 'Số thứ nhất không hợp lệ';
+                    result = '';
+                    outputResult.innerText = result;
+                    outputError.innerText = error;
+                    return;
+                }else{
+                    error = '';
+                    result = '';
+                    outputResult.innerText = result;
+                    outputError.innerText = error;
+                    return;
+                }
+            }
+        })
+        document.getElementById('ip1').addEventListener('click', function(){
+            let result;
+            let error;
+            let outputResult;
+            let outputError;
+            outputResult = document.getElementById('output');
+            outputError = document.getElementById('error');
+            // lấy giá trị input 2;
+            let value2 = document.getElementById('ip2').value;
+            if(value2 === ''){
+                return;
+            }else{
+                value2 = parseFloat(value2);
+                if(isNaN(value2)){
+                    error = 'Số thứ hai không hợp lệ';
+                    result = '';
+                    outputResult.innerText = result;
+                    outputError.innerText = error;
+                    return;
+                }else{
+                    error = '';
+                    result = '';
+                    outputResult.innerText = result;
+                    outputError.innerText = error;
+                    return;
+                }
+            }
+        })
+
+        const radios = document.getElementsByName('operation');
+        radios.forEach(function(radio) {
+            radio.addEventListener('click', function() {
+                let result;
+                let error = '';
+                let outputResult = document.getElementById('output');
+                let outputError = document.getElementById('error');
+
+                // Lấy giá trị input 1 & 2
+                let value1 = document.getElementById('ip1').value;
+                let value2 = document.getElementById('ip2').value;
+
+                // Kiểm tra giá trị rỗng và chuyển thành số
+                if (value1 != '') {
+                    value1 = parseFloat(value1);
+                    if (isNaN(value1)) {
+                        error = 'Số thứ nhất không hợp lệ';
+                        outputResult.innerText = '';
+                        outputError.innerText = error;
+                        return;
+                    }
+                } 
+                if (value2 != '') {
+                    value2 = parseFloat(value2);
+                    if (isNaN(value2)) {
+                        error = 'Số thứ hai không hợp lệ';
+                        outputResult.innerText = '';
+                        outputError.innerText = error;
+                        return;
+                    }
+                }
+            }
+        )});
+
         document.getElementById('calculateButton').addEventListener('click',function(){
             let result;
+            let error;
             let outputResult;
+            let outputError;
+            outputResult = document.getElementById('output');
+            outputError = document.getElementById('error');
+
             // lấy giá trị input 1 & 2
             let value1 = document.getElementById('ip1').value;
             let value2 = document.getElementById('ip2').value;
-            // kiểm tra input 1&2
+            // kiểm tra rỗng
             if(value1 === ''){
-                result = 'Vui lòng nhập số thứ nhất.';
-                outputResult = document.getElementById('error');
-                outputResult.innerText = result;
+                error = 'Vui lòng nhập số thứ nhất.';
+                outputResult.innerText = '';
+                outputError.innerText = error;
                 return;
             }
             if(value2 === ''){
-                result = 'Vui lòng nhập số thứ hai.';
-                outputResult = document.getElementById('error');
-                outputResult.innerText = result;
+                error = 'Vui lòng nhập số thứ hai.';
+                outputResult.innerText = '';
+                outputError.innerText = error;
                 return;
             }
             //chuyển đổi giá trị
@@ -56,15 +152,15 @@
             value2 = parseFloat(value2);
             //kiểm tra giá trị
             if(isNaN(value1)){
-                result = 'Số thứ nhất không hợp lệ';
-                outputResult = document.getElementById('error');
-                outputResult.innerText = result;
+                error = 'Số thứ nhất không hợp lệ';
+                outputResult.innerText = '';
+                outputError.innerText = error;
                 return;
             }
             if(isNaN(value2)){
                 result = 'Số thứ hai không hợp lệ';
-                outputResult = document.getElementById('error');
-                outputResult.innerText = result;
+                outputResult.innerText = '';
+                outputError.innerText = result;
                 return;
             }
             // lấy phép tính
@@ -78,31 +174,34 @@
                 }
             }
 
-
             switch(operation){
-                case '+': result = value1 + value2;
+                case '+': 
+                    result = value1 + value2;
+                    error = '';
                     break;
-                case '-': result = value1 - value2;
+                case '-': 
+                    result = value1 - value2;
+                    error = '';
                     break;
-                case '*': result = value1 * value2;
+                case '*': 
+                    result = value1 * value2;
+                    error = '';
                     break;
                 case '/': 
                     if(value2 === 0){
-                        result = 'Số thứ 2 không thể là 0';
+                        result = '';
+                        error = 'Số thứ 2 không thể là 0';
                     }else {
+                        error = '';
                         result = value1 / value2;
                     }
                     break;
                 default: 
-                    result = 'Vui lòng chọn 1 phép tính.';
+                    result = '';
+                    error = 'Vui lòng chọn 1 phép tính.';
                     break;
             }
-            if(typeof(result) === 'string'){
-                outputResult = document.getElementById('error');
-
-            }else{
-                outputResult = document.getElementById('output');
-            }
+            outputError.innerText = error;
             outputResult.innerText = result;
         });
         
